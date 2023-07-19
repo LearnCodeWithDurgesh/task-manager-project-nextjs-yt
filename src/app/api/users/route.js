@@ -49,10 +49,15 @@ export async function POST(request) {
     return response;
   } catch (error) {
     console.log(error);
-    return NextResponse.json({
-      messaage: "failed to create user !!",
-      status: false,
-    });
+    return NextResponse.json(
+      {
+        message: "failed to create user !!",
+        status: false,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 
   // const body = request.body;
