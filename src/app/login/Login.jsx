@@ -1,14 +1,17 @@
 "use client";
+import { login } from "@/services/userService";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const router = useRouter();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
-  const loginFormSubmitted = (event) => {
+  const loginFormSubmitted = async (event) => {
     event.preventDefault();
     console.log(loginData);
     if (loginData.email.trim() === "" || loginData.password.trim() === "") {
@@ -20,6 +23,19 @@ const Login = () => {
 
     //valid data
     //login
+
+    try {
+      const result = await login(loginData);
+      console.log(result);
+      toast.success("Logged In");
+      //redirect
+      router.push("/profile/user");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message, {
+        position: "top-center",
+      });
+    }
   };
 
   return (
