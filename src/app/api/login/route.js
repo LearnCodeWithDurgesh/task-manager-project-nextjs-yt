@@ -38,6 +38,7 @@ export async function POST(request) {
     const response = NextResponse.json({
       message: "Login success !!",
       success: true,
+      user: user,
     });
 
     response.cookies.set("authToken", token, {
