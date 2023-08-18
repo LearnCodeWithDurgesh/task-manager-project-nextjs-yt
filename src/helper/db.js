@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { User } from "../models/user";
+
 export const connectDb = async () => {
   try {
     const { connection } = await mongoose.connect(process.env.MONGO_DB_URL, {
@@ -7,7 +8,7 @@ export const connectDb = async () => {
     });
 
     console.log("db connected...");
-    // console.log(connection);
+    console.log(connection.readyState);
 
     //testing and ceating new user
 

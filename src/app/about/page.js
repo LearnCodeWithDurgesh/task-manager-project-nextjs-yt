@@ -1,8 +1,12 @@
 async function takeTime() {
   await new Promise((resvole) => {
-    setTimeout(resvole, 3000);
+    setTimeout(() => {
+      console.log("test");
+      resvole();
+    }, 5000);
   });
 }
+
 
 export default async function About() {
   await takeTime();
