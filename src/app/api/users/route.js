@@ -2,12 +2,12 @@ import { connectDb } from "@/helper/db";
 import { User } from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-connectDb();
 
 // get request function
 export async function GET(request) {
   let users = [];
   try {
+    await connectDb();
     users = await User.find().select("-password");
   } catch (error) {
     console.log(error);
@@ -48,6 +48,7 @@ export async function POST(request) {
     );
 
     console.log(user);
+    await connectDb();
     const createdUser = await user.save();
     const response = NextResponse.json(user, {
       status: 201,
