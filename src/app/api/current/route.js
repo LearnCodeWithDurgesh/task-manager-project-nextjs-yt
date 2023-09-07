@@ -6,12 +6,16 @@ import { connectDb } from "@/helper/db";
 export async function GET(request) {
   const authToken = request.cookies.get("authToken")?.value;
   console.log(authToken);
-  if (!authToken) {
-    return NextResponse.json({
-      message: "User is not loggedin",
-    });
+  // if (!authToken) {
+  //   return NextResponse.json({
+  //     message: "User is not loggedin",
+  //   });
+  // }
+  try{
+    const data = jwt.verify(authToken, process.env.JWT_KEY);
+  }catch(e){
+    console.log(e)
   }
-  const data = jwt.verify(authToken, process.env.JWT_KEY);
   console.log(data);
   await connectDb();
   const user = await User.findById(data._id).select("-password");
